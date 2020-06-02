@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
+
+body {
+    margin: 0;
+    background-color: #111111;
+    font-family: 'Roboto Mono', monospace;
+    color: #d6d6d6;
+}
+
+#toolbar {
+    height: 35px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    transition: opacity 300ms;
+    background-color: #222222;
+    opacity: 0.6;
+    z-index: 2;
+}
+
+#toolbar:hover {
+    opacity: 1;
+}
+
+#toolbar .btn {
+    height: 100%;
+    margin-left: 3px;
+    display: inline-flex;
+    width: 35px;
+    cursor: pointer;
+}
+
+#toolbar .btn.float {
+    float: right;
+    margin-right: 3px;
+    margin-left: 0px;
+}
+
+#toolbar .btn .icon {
+   height: 85%;
+   margin: auto;
+}
+
+
+.room {
+    height: calc(100vh - 35px);
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding-top: 35px;
+}
+
+.room-image {
+    margin: auto;
+    width: 1000px;
+    height: 600px;
+}
+
+#canvas-parent {
+    height: calc(100vh - 35px);
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
+
+canvas {
+    margin: auto;
+    z-index: 1;
+    position: relative;
+    top: 35px;
+}
+
+#config-panel {
+    position: fixed;
+    top: 40px;
+    left: 5px;
+    background-color: #222222;
+    width: 250px;
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+    opacity: 0;
+    transition: opacity 300ms;
+    z-index: 2;
+}
+
+#config-panel input {
+    background-color: #2e2e2e;
+    font-family: 'Roboto Mono',
+    monospace;
+    color: #d6d6d6;
+    border-radius: 3px;
+    border: none;
+}
+
+#config-panel input#config-name {
+    font-size: large;
+    border-radius: 5px;
+}
+
+#config-panel input:focus {
+    outline: none;
+}
+
+#config-panel button#config-apply {
+    background-color: #349eeb;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: #2e2e2e;
+    font-weight: 500;
+    font-family: 'Roboto Mono',
+        monospace;
+}

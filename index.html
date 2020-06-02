@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Can You Escape Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+    <div id="toolbar">
+        <div class="btn" name="edit">
+            <img src="assets/icons/edit.svg" class="icon">
+        </div>
+        <div class="btn" name="delete">
+            <img src="assets/icons/delete.svg" class="icon">
+        </div>
+        <div class="btn" name="image">
+            <img src="assets/icons/image.svg" class="icon">
+        </div>
+        <div class="float btn" name="preview">
+            <img src="assets/icons/preview.svg" class="icon">
+        </div>
+    </div>
+    <div id="rooms">
+        <div class="room">
+            <img src="assets/images/room_test.png" class="room-image">
+        </div>
+    </div>
+    <div id="canvas-parent">
+        <canvas width="1000" height="600"></canvas>
+    </div>
+    <div id="config-panel">
+        <input id="config-name" type="text" value="Box 1" placeholder="Name"><br>
+        <select id="config-type">
+            <option value="none" disabled selected>None</option>
+            <option value="move">Move</option>
+            <option value="dialouge">Dialouge</option>
+            <option value="item">Item</option>
+            <option value="code">Custom</option>
+        </select><br>
+        <button id="config-apply" onclick="EditTool.applyConfig()">Apply</button>
+    </div>
+</body>
+<script src="src/util/canvasClear.js"></script>
+<script src="src/util/renderBoxes.js"></script>
+<script src="src/tools/base.js"></script>
+<script src="src/actions/base.js"></script>
+<script src="src/actions/preview.js"></script>
+<script src="src/actions/image.js"></script>
+<script src="src/tools/edit.js"></script>
+<script src="src/tools/delete.js"></script>
+<script src="src/main.js"></script>
+</html>
