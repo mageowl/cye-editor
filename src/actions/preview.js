@@ -58,6 +58,29 @@ const PreviewAction = {
             boxEl.style.left = box[0];
             boxEl.style.top = box[1];
 
+            boxEl.onclick = function () {
+                switch (box[4].type) {
+                    case "move":
+                        
+                        break;
+
+                    case "item":
+
+                        break;
+
+                    case "text":
+                        this.previewWindow.alert(box[4].data.dialouge)
+                        break;
+
+                    case "code":
+
+                        break;
+                
+                    default:
+                        break;
+                }
+            }.bind(this)
+
             boxContainerEl.appendChild(boxEl);
         });
 
@@ -65,6 +88,12 @@ const PreviewAction = {
 
         window.onfocus = () => {
             this.previewWindow.close();
+        }
+
+        this.previewWindow.onresize = () => {
+            setTimeout(() => {
+                boxContainerEl.style.left = roomImageEl.getBoundingClientRect().left;
+            }, 10);
         }
     }
 }

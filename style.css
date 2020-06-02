@@ -82,25 +82,32 @@ canvas {
     padding: 10px;
     display: none;
     opacity: 0;
-    transition: opacity 300ms;
+    transition: opacity 100ms;
     z-index: 2;
 }
 
-#config-panel input {
+#config-panel input,
+#config-panel div[contenteditable] {
     background-color: #2e2e2e;
     font-family: 'Roboto Mono',
     monospace;
     color: #d6d6d6;
     border-radius: 3px;
     border: none;
+    resize: none;
+}
+
+#config-panel div[contenteditable] {
+    font-size: 0.8em;
 }
 
 #config-panel input#config-name {
-    font-size: large;
+    font-size: 1.3em;
     border-radius: 5px;
 }
 
-#config-panel input:focus {
+#config-panel input:focus,
+#config-panel div[contenteditable]:focus {
     outline: none;
 }
 
@@ -113,4 +120,8 @@ canvas {
     font-weight: 500;
     font-family: 'Roboto Mono',
         monospace;
+}
+
+#config-panel div.section {
+    display: none;
 }

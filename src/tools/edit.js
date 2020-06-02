@@ -20,6 +20,18 @@ const EditTool = {
             configPanel.style.opacity = 1;
             configPanel.querySelector("input#config-name").value = config.name;
             configPanel.querySelector("select").querySelector("option[value=" + config.type + "]").selected = true;
+            configPanel.querySelectorAll("div.section").forEach((section) => {
+                section.style.display = "none";
+            });
+            configPanel.querySelector("div.section[name=" + config.type + "]").style.display = "block";
+            switch (this.selection[4].type) {
+                case "text":
+                    configPanel.querySelector("div#config-text-dialouge").innerText = config.data.dialouge;
+                    break;
+
+                default:
+                    break;
+            }
         } else {
             configPanel.style.opacity = 0;
         }
@@ -101,8 +113,23 @@ const EditTool = {
 
         this.selection[4].name = config.name || "Box " + (boxes.length);
         this.selection[4].type = config.type;
+        this.selection[4].data = {}
+
+        switch (this.selection[4].type) {
+            case "text":
+                this.selection[4].data.dialouge = configPanel.querySelector("div#config-text-dialouge").innerText;
+                break;
+        
+            default:
+                break;
+        }
+
         this.selection = null;
         renderBoxes();
+    },
+
+    configTypeChange() {
+        configPanel.querySelector("div.section[name=" + configPanel.querySelector("#config-type").value + "]").style.display = "block";
     },
 
     onremove() {

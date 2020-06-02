@@ -30,23 +30,30 @@
     </div>
     <div id="config-panel">
         <input id="config-name" type="text" value="Box 1" placeholder="Name"><br>
-        <select id="config-type">
+        <select id="config-type" onchange="EditTool.configTypeChange()">
             <option value="none" disabled selected>None</option>
             <option value="move">Move</option>
-            <option value="dialouge">Dialouge</option>
+            <option value="text">Dialouge</option>
             <option value="item">Item</option>
             <option value="code">Custom</option>
         </select><br>
+        <div name="move" class="section"></div>
+        <div name="text" class="section">
+            Text:<br>
+            <div contenteditable id="config-text-dialouge"></div>
+        </div>
+        <div name="item" class="section"></div>
+        <div name="code" class="section"></div>
         <button id="config-apply" onclick="EditTool.applyConfig()">Apply</button>
     </div>
+    <script src="src/util/canvasClear.js"></script>
+    <script src="src/util/renderBoxes.js"></script>
+    <script src="src/tools/base.js"></script>
+    <script src="src/actions/base.js"></script>
+    <script src="src/actions/preview.js"></script>
+    <script src="src/actions/image.js"></script>
+    <script src="src/tools/edit.js"></script>
+    <script src="src/tools/delete.js"></script>
+    <script src="src/main.js"></script>
 </body>
-<script src="src/util/canvasClear.js"></script>
-<script src="src/util/renderBoxes.js"></script>
-<script src="src/tools/base.js"></script>
-<script src="src/actions/base.js"></script>
-<script src="src/actions/preview.js"></script>
-<script src="src/actions/image.js"></script>
-<script src="src/tools/edit.js"></script>
-<script src="src/tools/delete.js"></script>
-<script src="src/main.js"></script>
 </html>

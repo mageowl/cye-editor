@@ -5,7 +5,7 @@ function renderBoxes() {
             none: "#222222",
             code: "#eb7734",
             move: "#349eeb",
-            dialouge: "#d92eff",
+            text: "#d92eff",
             item: "#54ff2e"
         }[box[4].type]
 
