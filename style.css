@@ -91,8 +91,8 @@ canvas {
     z-index: 2;
 }
 
-#config-panel input,
-#config-panel div[contenteditable] {
+input,
+div[contenteditable] {
     background-color: #2e2e2e;
     font-family: 'Roboto Mono',
     monospace;
@@ -102,7 +102,7 @@ canvas {
     resize: none;
 }
 
-#config-panel div[contenteditable] {
+div[contenteditable] {
     font-size: 0.8em;
 }
 
@@ -111,8 +111,8 @@ canvas {
     border-radius: 5px;
 }
 
-#config-panel input:focus,
-#config-panel div[contenteditable]:focus {
+input:focus,
+div[contenteditable]:focus {
     outline: none;
 }
 
@@ -159,4 +159,47 @@ canvas {
 
 #room-menu h3.option {
     border-bottom: #151515 2px solid;
+}
+
+#room-settings {
+    position: fixed;
+    top: 40px;
+    left: 5px;
+    background-color: #222222;
+    width: 250px;
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+    opacity: 0;
+    transition: opacity 100ms;
+    z-index: 2;
+}
+
+#room-settings input#room-name {
+    font-size: 1.3em;
+    border-radius: 5px;
+}
+
+#room-settings button {
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: #2e2e2e;
+    font-weight: 500;
+    font-family: 'Roboto Mono',
+        monospace;
+    cursor: pointer;
+}
+
+#room-settings button#room-apply {
+    background-color: #349eeb;
+}
+
+#room-settings button#room-delete {
+    background-color: #e76a61;
+}
+
+#room-settings button#room-delete:disabled {
+    background-color: #d39c98;
+    color: #5c5c5c;
 }

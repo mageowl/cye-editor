@@ -57,7 +57,12 @@
     <div id="room-menu">
         <span id="room-options"></span>
         <h3 onclick="RoomMenuAction.newRoom()">New Room</h3>
-        <h3>Room Settings</h3>
+        <h3 onclick="RoomMenuAction.roomSettings()">Room Settings</h3>
+    </div>
+
+    <div id="room-settings">
+        <input id="room-name" type="text" value="Room 1" placeholder="Room Name"><br>
+        <button id="room-delete" onclick="RoomMenuAction.deleteCurrentRoom()">Delete</button> <button id="room-apply" onclick="RoomMenuAction.applyRoomSettings()">Apply</button>
     </div>
 
     <script src="src/util/canvasClear.js"></script>

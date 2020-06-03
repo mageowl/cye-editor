@@ -1,11 +1,13 @@
 const roomMenu = document.getElementById("room-menu");
 const roomButtonContainer = document.getElementById("room-options");
 const roomMenuButton = document.getElementsByName("roomSelect")[0];
+const roomSettings = document.getElementById("room-settings")
 
 const RoomMenuAction = {
     ...Action,
 
     menuOpen: false,
+    settingsOpen: false,
 
     action() {
         this.menuOpen = !this.menuOpen;
@@ -69,5 +71,38 @@ const RoomMenuAction = {
 
         roomMenuButton.click();
         clearCanvas();
+    },
+
+    roomSettings() {
+        roomMenuButton.click();
+        roomSettings.style.display = "block";
+        roomSettings.style.opacity = 1;
+        this.settingsOpen = true;
+
+        roomSettings.querySelector("input#room-name").value = currentRoom.name;
+        if (rooms.length == 1) roomSettings.querySelector("button#room-delete").disabled = true;
+        else roomSettings.querySelector("button#room-delete").disabled = false;
+    },
+
+    applyRoomSettings() {
+        currentRoom.name = roomSettings.querySelector("input#room-name").value;
+
+        roomSettings.style.display = "none";
+        roomSettings.style.opacity = 0;
+        this.settingsOpen = false;
+    },
+
+    deleteCurrentRoom() {
+        if (rooms.length == 1) return;
+        currentRoom.el.remove();
+        rooms.splice(currentRoomIndex, 1);
+        currentRoomIndex = Math.max(0, currentRoomIndex - 1);
+        currentRoom = rooms[currentRoomIndex];
+        currentRoom.el.classList.add("current");
+        renderBoxes()
+
+        roomSettings.style.display = "none";
+        roomSettings.style.opacity = 0;
+        this.settingsOpen = false;
     }
 };
