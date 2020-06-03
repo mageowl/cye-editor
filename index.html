@@ -25,10 +25,7 @@
     </div>
     <div id="rooms">
         <div class="room current">
-            <img src="assets/images/placeholder-room.png" class="room-image">
-        </div>
-        <div class="room">
-            <img src="https://images.pexels.com/photos/1827054/pexels-photo-1827054.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1000" class="room-image">
+            <div style="background-image: url(assets/images/placeholder-room.png);" class="room-image"></div>
         </div>
     </div>
     <div id="canvas-parent">
@@ -44,10 +41,18 @@
             <option value="code">Custom</option>
         </select><br>
         <div name="move" class="section">
-            Move to <select id="config-move-rooms"></select>
+            Move to <select id="config-move-rooms"></select><br>
+            Condition: <select id="config-move-condition-type" onchange="EditTool.moveConditionTypeChange()">
+                <option value="none">None</option>
+                <option value="item">Item</option>
+                <option value="code">Custom</option>
+            </select>
+            <div contenteditable id="config-move-condition"></div>
+            <span id="config-move-dialogue-container">Dialogue: <input id="config-move-condition-dialogue" type="text"></span>
         </div>
         <div name="text" class="section">
             Text:<br>
+            
             <div contenteditable id="config-text-dialogue"></div>
         </div>
         <div name="item" class="section"></div>

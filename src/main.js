@@ -11,9 +11,6 @@ let rooms = [
 
 let currentRoom = rooms[0];
 let currentRoomIndex = 0;
-
-const roomContainer = document.getElementById("rooms")
-
 // VARIBLES
 const toolTypes = {
     edit: EditTool,
@@ -25,6 +22,9 @@ const toolTypes = {
 let dirname = location.href.split("/").slice(0, -1).join("/");
 
 const editorToolbar = document.getElementById("toolbar");
+const roomContainer = document.getElementById("rooms");
+
+let saves = JSON.parse(localStorage.cye_saves || "[]");
 
 // CANVAS
 const canvas = document.getElementsByTagName("canvas")[0];
@@ -57,3 +57,65 @@ Array.from(document.querySelectorAll("#toolbar .btn")).forEach((button) => {
         }
     };
 });
+
+// SAVE AND LOAD
+window.onkeydown = (e) => {
+    if (e.metaKey || e.ctrlKey) { 
+        if (e.key == "s") {
+            e.preventDefault()
+            let simplfiedRooms = rooms.map((value) => { return { ...value, imageEl: value.imageEl.style.getPropertyValue("background-image").slice(5, -2), el: undefined }});
+
+            let el = document.createElement('a');
+            el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify({rooms: simplfiedRooms})));
+            el.setAttribute('download', "project.json");
+
+            el.style.display = 'none';
+            document.body.appendChild(el);
+
+            el.click();
+
+            document.body.removeChild(el);
+        } else if (e.key == "o") {
+            e.preventDefault()
+
+            let text = prompt("Enter the JSON data:");
+            if (text == null) return;
+
+            rooms.forEach((room) => {
+                room.el.remove();
+            })
+            rooms = []
+
+            JSON.parse(text).rooms.forEach((room) => {
+                currentRoom.el.classList.remove("current");
+
+                let el = document.createElement("div");
+                el.classList.add("room");
+
+                let imageEl = document.createElement("div");
+                imageEl.classList.add("room-image");
+                imageEl.style.backgroundImage = "url(" + room.imageEl + ")";
+                el.appendChild(imageEl);
+
+                roomContainer.appendChild(el);
+
+                let roomObj = {
+                    name: room.name,
+                    el,
+                    imageEl,
+                    boxes: room.boxes
+                };
+
+                rooms.push(roomObj);
+
+                clearCanvas();
+            })
+
+            currentRoomIndex = 0;
+            currentRoom = rooms[0];
+            currentRoom.el.classList.add("current");
+
+            editorToolbar.querySelector("div.btn[name=preview]").click();
+        }
+    }
+}

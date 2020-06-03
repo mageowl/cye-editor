@@ -51,9 +51,9 @@ const RoomMenuAction = {
         let el = document.createElement("div");
         el.classList.add("room", "current");
 
-        let imageEl = document.createElement("img");
+        let imageEl = document.createElement("div");
         imageEl.classList.add("room-image");
-        imageEl.src = "./assets/images/placeholder-room.png";
+        imageEl.style.backgroundImage = "url(./assets/images/placeholder-room.png)";
         el.appendChild(imageEl);
 
         roomContainer.appendChild(el);

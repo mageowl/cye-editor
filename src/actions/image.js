@@ -4,7 +4,7 @@ const ImageAction = {
     action() {
         let imageURL = prompt("Enter the URL:");
         if (imageURL == null) return;
-        currentRoom.imageEl.src = imageURL;
+        currentRoom.imageEl.style.backgroundImage = "url(" + imageURL + ")";
         renderBoxes();
     }
 }

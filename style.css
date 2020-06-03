@@ -59,6 +59,9 @@ body {
     margin: auto;
     width: 1000px;
     height: 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #canvas-parent {
@@ -89,6 +92,7 @@ canvas {
     opacity: 0;
     transition: opacity 100ms;
     z-index: 2;
+    line-break: loose;
 }
 
 input,

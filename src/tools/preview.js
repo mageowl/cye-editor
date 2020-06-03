@@ -2,11 +2,13 @@ const PreviewTool = {
     ...Tool,
 
     previewMode: false,
+    inventory: [],
 
     onadd() {
         editorToolbar.style.display = "none";
         this.previewMode = true;
         clearCanvas();
+        this.inventory = [];
 
         window.onkeydown = (e) => {
             if (e.key == "Escape") {
@@ -26,7 +28,6 @@ const PreviewTool = {
             }
         });
 
-        console.log(clickTarget)
         if (clickTarget != null) {
             switch (clickTarget[4].type) {
                 case "text":
@@ -34,11 +35,28 @@ const PreviewTool = {
                     break;
 
                 case "move":
+                    if (clickTarget[4].data.roomID == "") return;
+                    switch (clickTarget[4].data.condition.type) {
+                        case "item":
+                            if (!this.inventory.includes(clickTarget[4].data.condition.value)) {
+                                alert(clickTarget[4].data.condition.dialogue)
+                                return;
+                            }
+                            break;
+                    
+                        default:
+                            break;
+                    }
+
                     currentRoom.el.classList.remove("current");
                     currentRoomIndex = clickTarget[4].data.roomID;
                     currentRoom = rooms[clickTarget[4].data.roomID];
                     currentRoom.el.classList.add("current");
                     break;
+
+                case "item":
+                    alert("You picked up a " + clickTarget[4].name + "!")
+                    this.inventory.push(clickTarget[4].name)
             
                 default:
                     break;

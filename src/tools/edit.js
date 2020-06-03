@@ -19,7 +19,7 @@ const EditTool = {
             configPanel.style.display = "block";
             configPanel.style.opacity = 1;
             configPanel.querySelector("input#config-name").value = config.name;
-            configPanel.querySelector("select#config-type").querySelector("option[value=" + config.type + "]").selected = true;
+            configPanel.querySelector("select#config-type").querySelector("option[value='" + config.type + "']").selected = true;
             configPanel.querySelectorAll("div.section").forEach((section) => {
                 section.style.display = "none";
             });
@@ -39,6 +39,12 @@ const EditTool = {
 
                         configPanel.querySelector("select#config-move-rooms").appendChild(option);
                     });
+
+                    configPanel.querySelector("select#config-move-rooms").querySelector("option[value='" + config.data.roomID + "']").selected = true;
+
+                    configPanel.querySelector("select#config-move-condition-type").querySelector("option[value='" + config.data.condition.type + "']").selected = true;
+                    if (config.data.condition.type == "none") configPanel.querySelector("div#config-move-condition").style.display = "none";
+                    break;
 
                 default:
                     break;
@@ -96,7 +102,7 @@ const EditTool = {
     },
 
     onmouseup() {
-        if (!this.drawing || this.currentBox[2] == undefined) return;
+        if (!this.drawing || this.currentBox == undefined) return;
 
         this.drawing = false;
 
@@ -133,6 +139,11 @@ const EditTool = {
 
             case "move":
                 this.selection[4].data.roomID = configPanel.querySelector("select#config-move-rooms").value;
+
+                this.selection[4].data.condition = {};
+                this.selection[4].data.condition.type = configPanel.querySelector("select#config-move-condition-type").value;
+                this.selection[4].data.condition.value = configPanel.querySelector("div#config-move-condition").innerHTML;
+                if (this.selection[4].data.condition.type == "item") this.selection[4].data.condition.dialogue = configPanel.querySelector("input#config-move-condition-dialogue").value;
         
             default:
                 break;
@@ -165,10 +176,24 @@ const EditTool = {
 
                     configPanel.querySelector("select#config-move-rooms").appendChild(option);
                 });
+
+                configPanel.querySelector("div#config-move-condition").style.display = "none";
+                configPanel.querySelector("select#config-move-condition-type").querySelector("option[value=none]").selected = true;
+                configPanel.querySelector("span#config-move-dialogue-container").style.display = "none";
         
             default:
                 break;
         }
+    },
+
+    moveConditionTypeChange() {
+        let value = configPanel.querySelector("select#config-move-condition-type").value;
+
+        if (value == "none") configPanel.querySelector("div#config-move-condition").style.display = "none";
+        else configPanel.querySelector("div#config-move-condition").style.display = "block";
+
+        if (value != "item") configPanel.querySelector("span#config-move-dialogue-container").style.display = "none";
+        else configPanel.querySelector("span#config-move-dialogue-container").style.display = "block";
     },
 
     onremove() {
