@@ -2,16 +2,20 @@ const PreviewTool = {
     ...Tool,
 
     previewMode: false,
+    imported: false,
     inventory: [],
 
     onadd() {
         editorToolbar.style.display = "none";
+        document.getElementById("export-reminder").style.display = this.imported ? "none" : "block";
         this.previewMode = true;
         clearCanvas();
         this.inventory = [];
 
         window.onkeydown = (e) => {
-            if (e.key == "Escape") {
+            if (e.metaKey || e.ctrlKey) {
+                handleCmdKey(e, true);
+            } else if (e.key == "Escape" && !this.imported) {
                 document.getElementsByName("preview")[0].click();
             }
         };
@@ -67,8 +71,13 @@ const PreviewTool = {
 
     onremove() {
         editorToolbar.style.display = "block";
+        document.getElementById("export-reminder").style.display = "none";
         this.previewMode = false;
-        window.onkeydown = () => {};
+        window.onkeydown = (e) => {
+            if (e.metaKey || e.ctrlKey) {
+                handleCmdKey(e, false);
+            }
+        };
         renderBoxes();
     }
 };

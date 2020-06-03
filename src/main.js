@@ -59,71 +59,78 @@ Array.from(document.querySelectorAll("#toolbar .btn")).forEach((button) => {
 });
 
 // SAVE AND LOAD
-window.onkeydown = (e) => {
-    if (e.metaKey || e.ctrlKey) { 
-        if (e.key == "s") {
-            e.preventDefault()
-            let simplfiedRooms = rooms.map((value) => { return { ...value, imageEl: value.imageEl.style.getPropertyValue("background-image").slice(5, -2), el: undefined }});
+function handleCmdKey(e, final = false) {
+    if (e.key == "s") {
+        e.preventDefault()
+        let simplfiedRooms = rooms.map((value) => { return { ...value, imageEl: value.imageEl.style.getPropertyValue("background-image").slice(5, -2), el: undefined } });
 
-            let el = document.createElement('a');
-            el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify({rooms: simplfiedRooms})));
-            el.setAttribute('download', "project.cye");
+        let el = document.createElement('a');
+        el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify({ rooms: simplfiedRooms, final })));
+        el.setAttribute('download', "project.cye");
 
-            el.style.display = 'none';
-            document.body.appendChild(el);
+        el.style.display = 'none';
+        document.body.appendChild(el);
 
-            el.click();
+        el.click();
 
-            document.body.removeChild(el);
-        } else if (e.key == "o") {
-            e.preventDefault();
+        document.body.removeChild(el);
+    } else if (e.key == "o") {
+        e.preventDefault();
 
-            readFile().then((text) => {
-                let json
+        readFile().then((text) => {
+            let json
 
-                try {
-                    json = JSON.parse(text)
-                } catch (err) {
-                    alert("That file is not valid.");
-                    return;
-                }
+            try {
+                json = JSON.parse(text)
+            } catch (err) {
+                alert("That file is not valid.");
+                return;
+            }
 
-                rooms.forEach((room) => {
-                    room.el.remove();
-                })
-                rooms = []
+            rooms.forEach((room) => {
+                room.el.remove();
+            })
+            rooms = []
 
-                json.rooms.forEach((room) => {
-                    currentRoom.el.classList.remove("current");
+            json.rooms.forEach((room) => {
+                currentRoom.el.classList.remove("current");
 
-                    let el = document.createElement("div");
-                    el.classList.add("room");
+                let el = document.createElement("div");
+                el.classList.add("room");
 
-                    let imageEl = document.createElement("div");
-                    imageEl.classList.add("room-image");
-                    imageEl.style.backgroundImage = "url(" + room.imageEl + ")";
-                    el.appendChild(imageEl);
+                let imageEl = document.createElement("div");
+                imageEl.classList.add("room-image");
+                imageEl.style.backgroundImage = "url(" + room.imageEl + ")";
+                el.appendChild(imageEl);
 
-                    roomContainer.appendChild(el);
+                roomContainer.appendChild(el);
 
-                    let roomObj = {
-                        name: room.name,
-                        el,
-                        imageEl,
-                        boxes: room.boxes
-                    };
+                let roomObj = {
+                    name: room.name,
+                    el,
+                    imageEl,
+                    boxes: room.boxes
+                };
 
-                    rooms.push(roomObj);
+                rooms.push(roomObj);
 
-                    clearCanvas();
-                })
+                clearCanvas();
+            })
 
-                currentRoomIndex = 0;
-                currentRoom = rooms[0];
-                currentRoom.el.classList.add("current");
+            currentRoomIndex = 0;
+            currentRoom = rooms[0];
+            currentRoom.el.classList.add("current");
 
+            if (json.final) {
+                PreviewTool.imported = true;
                 editorToolbar.querySelector("div.btn[name=preview]").click();
-            });
-        }
+            } else renderBoxes();
+        });
+    }
+}
+
+window.onkeydown = (e) => {
+    if (e.metaKey || e.ctrlKey) {
+        handleCmdKey(e, false);
     }
 }

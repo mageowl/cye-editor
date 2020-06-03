@@ -41,6 +41,14 @@ body {
    margin: auto;
 }
 
+#export-reminder {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: none;
+    color: #494949;
+}
+
 
 .room {
     height: calc(100vh - 35px);
