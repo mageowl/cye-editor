@@ -67,7 +67,7 @@ window.onkeydown = (e) => {
 
             let el = document.createElement('a');
             el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify({rooms: simplfiedRooms})));
-            el.setAttribute('download', "project.json");
+            el.setAttribute('download', "project.cye");
 
             el.style.display = 'none';
             document.body.appendChild(el);
