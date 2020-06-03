@@ -55,6 +55,7 @@ const PreviewTool = {
                     break;
 
                 case "item":
+                    if (this.inventory.includes(clickTarget[4].name)) return;
                     alert("You picked up a " + clickTarget[4].name + "!")
                     this.inventory.push(clickTarget[4].name)
             
