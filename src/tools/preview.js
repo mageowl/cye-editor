@@ -13,7 +13,7 @@ const PreviewTool = {
         this.inventory = [];
 
         window.onkeydown = (e) => {
-            if (e.metaKey || e.ctrlKey) {
+            if (e.metaKey || (e.ctrlKey && !window.navigator.platform.indexOf('Mac') >= 0)) {
                 handleCmdKey(e, true);
             } else if (e.key == "Escape" && !this.imported) {
                 document.getElementsByName("preview")[0].click();
@@ -74,7 +74,7 @@ const PreviewTool = {
         document.getElementById("export-reminder").style.display = "none";
         this.previewMode = false;
         window.onkeydown = (e) => {
-            if (e.metaKey || e.ctrlKey) {
+            if (e.metaKey || (e.ctrlKey && !window.navigator.platform.indexOf('Mac') >= 0)) {
                 handleCmdKey(e, false);
             }
         };

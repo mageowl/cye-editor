@@ -130,7 +130,7 @@ function handleCmdKey(e, final = false) {
 }
 
 window.onkeydown = (e) => {
-    if (e.metaKey || e.ctrlKey) {
+    if (e.metaKey || (e.ctrlKey && !window.navigator.platform.indexOf('Mac') >= 0)) {
         handleCmdKey(e, false);
     }
 }
