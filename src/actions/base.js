@@ -8,5 +8,8 @@ const Action = {
         return undefined
     },
 
-    action() {}
+    action() { },
+
+    onremove() { },
+    onadd() { },
 }

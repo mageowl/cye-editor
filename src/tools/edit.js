@@ -19,15 +19,26 @@ const EditTool = {
             configPanel.style.display = "block";
             configPanel.style.opacity = 1;
             configPanel.querySelector("input#config-name").value = config.name;
-            configPanel.querySelector("select").querySelector("option[value=" + config.type + "]").selected = true;
+            configPanel.querySelector("select#config-type").querySelector("option[value=" + config.type + "]").selected = true;
             configPanel.querySelectorAll("div.section").forEach((section) => {
                 section.style.display = "none";
             });
-            configPanel.querySelector("div.section[name=" + config.type + "]").style.display = "block";
+            if (config.type != "none") configPanel.querySelector("div.section[name=" + config.type + "]").style.display = "block";
             switch (this.selection[4].type) {
                 case "text":
-                    configPanel.querySelector("div#config-text-dialouge").innerText = config.data.dialouge;
+                    configPanel.querySelector("div#config-text-dialogue").innerText = config.data.dialogue;
                     break;
+
+                case "move":
+                    Array.from(configPanel.querySelector("select#config-move-rooms").children).forEach((option) => option.remove())
+                    rooms.forEach((room, i) => {
+                        let option = document.createElement("option");
+                        option.value = i;
+                        option.innerText = room.name;
+                        if (i == currentRoomIndex) option.disabled = true;
+
+                        configPanel.querySelector("select#config-move-rooms").appendChild(option);
+                    });
 
                 default:
                     break;
@@ -63,7 +74,7 @@ const EditTool = {
 
         let found = false
         this.hoverBox = null
-        boxes.forEach((box) => {
+        currentRoom.boxes.forEach((box) => {
             if ((x > box[0] && x < (box[2] + box[0])) && (y > box[1] && y < (box[3] + box[1])) && !found) {
                 this.hoverBox = box;
                 found = true;
@@ -98,7 +109,7 @@ const EditTool = {
             this.currentBox[3] = Math.abs(this.currentBox[3])
         }
 
-        boxes.unshift(this.currentBox.concat([{name: "Box " + (boxes.length + 1), type: "none"}]));
+        currentRoom.boxes.unshift(this.currentBox.concat([{name: "Box " + (currentRoom.boxes.length + 1), type: "none"}]));
         this.currentBox = undefined;
 
         renderBoxes();
@@ -111,14 +122,17 @@ const EditTool = {
     applyConfig() {
         let config = this.currentConfig
 
-        this.selection[4].name = config.name || "Box " + (boxes.length);
+        this.selection[4].name = config.name || "Box " + (currentRoom.boxes.length);
         this.selection[4].type = config.type;
         this.selection[4].data = {}
 
         switch (this.selection[4].type) {
             case "text":
-                this.selection[4].data.dialouge = configPanel.querySelector("div#config-text-dialouge").innerText;
+                this.selection[4].data.dialogue = configPanel.querySelector("div#config-text-dialogue").innerText;
                 break;
+
+            case "move":
+                this.selection[4].data.roomID = configPanel.querySelector("select#config-move-rooms").value;
         
             default:
                 break;
@@ -129,12 +143,37 @@ const EditTool = {
     },
 
     configTypeChange() {
-        configPanel.querySelector("div.section[name=" + configPanel.querySelector("#config-type").value + "]").style.display = "block";
+        let value = configPanel.querySelector("#config-type").value;
+
+        configPanel.querySelectorAll("div.section").forEach((section) => {
+            section.style.display = "none";
+        });
+        configPanel.querySelector("div.section[name=" + value + "]").style.display = "block";
+
+        switch (value) {
+            case "text":
+                configPanel.querySelector("div#config-text-dialogue").innerText = "";
+                break;
+
+            case "move":
+                Array.from(configPanel.querySelector("select#config-move-rooms").children).forEach((option) => option.remove())
+                rooms.forEach((room, i) => {
+                    let option = document.createElement("option");
+                    option.value = i;
+                    option.innerText = room.name;
+                    if (i == currentRoomIndex) option.disabled = true;
+
+                    configPanel.querySelector("select#config-move-rooms").appendChild(option);
+                });
+        
+            default:
+                break;
+        }
     },
 
     onremove() {
-        this.selection = null;
+        if (this.selection != null) this.applyConfig();
     },
 
     cursor: "url(./assets/icons/edit.png) 2 16, default"
-}
+};

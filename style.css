@@ -48,6 +48,11 @@ body {
     display: flex;
     align-items: center;
     padding-top: 35px;
+    display: none;
+}
+
+.room.current {
+    display: flex;
 }
 
 .room-image {
@@ -124,4 +129,34 @@ canvas {
 
 #config-panel div.section {
     display: none;
+}
+
+#room-menu {
+    position: fixed;
+    top: 40px;
+    right: 5px;
+    background-color: #222222;
+    width: 250px;
+    border-radius: 5px;
+    padding-top: 10px;
+    display: none;
+    opacity: 0;
+    transition: opacity 100ms;
+    z-index: 2;
+}
+
+#room-menu h3 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+#room-menu h3.current::before {
+    content: "> ";
+    display: inline;
+}
+
+#room-menu h3.option {
+    border-bottom: #151515 2px solid;
 }

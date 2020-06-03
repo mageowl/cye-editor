@@ -4,7 +4,7 @@ const ImageAction = {
     action() {
         let imageURL = prompt("Enter the URL:");
         if (imageURL == null) return;
-        roomImage.src = imageURL;
+        currentRoom.imageEl.src = imageURL;
         renderBoxes();
     }
 }

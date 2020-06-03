@@ -6,9 +6,9 @@ const DeleteTool = {
         let y = e.clientY - this.canvas.offsetTop;
 
         let found = false;
-        boxes.forEach((box, i) => {
+        currentRoom.boxes.forEach((box, i) => {
             if ((x > box[0] && x < (box[2] + box[0])) && (y > box[1] && y < (box[3] + box[1])) && !found) {
-                boxes.splice(i, 1);
+                currentRoom.boxes.splice(i, 1);
                 found = true;
             }
         });

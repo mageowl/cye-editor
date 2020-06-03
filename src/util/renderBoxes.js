@@ -1,6 +1,6 @@
 function renderBoxes() {
     clearCanvas()
-    boxes.forEach((box) => {
+    currentRoom.boxes.forEach((box) => {
         let color = {
             none: "#222222",
             code: "#eb7734",

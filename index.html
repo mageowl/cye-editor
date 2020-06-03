@@ -16,13 +16,19 @@
         <div class="btn" name="image">
             <img src="assets/icons/image.svg" class="icon">
         </div>
+        <div class="float btn" name="roomSelect">
+            <img src="assets/icons/menu.svg" class="icon">
+        </div>
         <div class="float btn" name="preview">
             <img src="assets/icons/preview.svg" class="icon">
         </div>
     </div>
     <div id="rooms">
+        <div class="room current">
+            <img src="assets/images/placeholder-room.png" class="room-image">
+        </div>
         <div class="room">
-            <img src="assets/images/room_test.png" class="room-image">
+            <img src="https://images.pexels.com/photos/1827054/pexels-photo-1827054.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1000" class="room-image">
         </div>
     </div>
     <div id="canvas-parent">
@@ -33,25 +39,34 @@
         <select id="config-type" onchange="EditTool.configTypeChange()">
             <option value="none" disabled selected>None</option>
             <option value="move">Move</option>
-            <option value="text">Dialouge</option>
+            <option value="text">Dialogue</option>
             <option value="item">Item</option>
             <option value="code">Custom</option>
         </select><br>
-        <div name="move" class="section"></div>
+        <div name="move" class="section">
+            Move to <select id="config-move-rooms"></select>
+        </div>
         <div name="text" class="section">
             Text:<br>
-            <div contenteditable id="config-text-dialouge"></div>
+            <div contenteditable id="config-text-dialogue"></div>
         </div>
         <div name="item" class="section"></div>
         <div name="code" class="section"></div>
         <button id="config-apply" onclick="EditTool.applyConfig()">Apply</button>
     </div>
+    <div id="room-menu">
+        <span id="room-options"></span>
+        <h3 onclick="RoomMenuAction.newRoom()">New Room</h3>
+        <h3>Room Settings</h3>
+    </div>
+
     <script src="src/util/canvasClear.js"></script>
     <script src="src/util/renderBoxes.js"></script>
     <script src="src/tools/base.js"></script>
     <script src="src/actions/base.js"></script>
-    <script src="src/actions/preview.js"></script>
     <script src="src/actions/image.js"></script>
+    <script src="src/actions/roomMenu.js"></script>
+    <script src="src/tools/preview.js"></script>
     <script src="src/tools/edit.js"></script>
     <script src="src/tools/delete.js"></script>
     <script src="src/main.js"></script>
