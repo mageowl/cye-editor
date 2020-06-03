@@ -76,46 +76,54 @@ window.onkeydown = (e) => {
 
             document.body.removeChild(el);
         } else if (e.key == "o") {
-            e.preventDefault()
+            e.preventDefault();
 
-            let text = prompt("Enter the JSON data:");
-            if (text == null) return;
+            readFile().then((text) => {
+                let json
 
-            rooms.forEach((room) => {
-                room.el.remove();
-            })
-            rooms = []
+                try {
+                    json = JSON.parse(text)
+                } catch (err) {
+                    alert("That file is not valid.");
+                    return;
+                }
 
-            JSON.parse(text).rooms.forEach((room) => {
-                currentRoom.el.classList.remove("current");
+                rooms.forEach((room) => {
+                    room.el.remove();
+                })
+                rooms = []
 
-                let el = document.createElement("div");
-                el.classList.add("room");
+                json.rooms.forEach((room) => {
+                    currentRoom.el.classList.remove("current");
 
-                let imageEl = document.createElement("div");
-                imageEl.classList.add("room-image");
-                imageEl.style.backgroundImage = "url(" + room.imageEl + ")";
-                el.appendChild(imageEl);
+                    let el = document.createElement("div");
+                    el.classList.add("room");
 
-                roomContainer.appendChild(el);
+                    let imageEl = document.createElement("div");
+                    imageEl.classList.add("room-image");
+                    imageEl.style.backgroundImage = "url(" + room.imageEl + ")";
+                    el.appendChild(imageEl);
 
-                let roomObj = {
-                    name: room.name,
-                    el,
-                    imageEl,
-                    boxes: room.boxes
-                };
+                    roomContainer.appendChild(el);
 
-                rooms.push(roomObj);
+                    let roomObj = {
+                        name: room.name,
+                        el,
+                        imageEl,
+                        boxes: room.boxes
+                    };
 
-                clearCanvas();
-            })
+                    rooms.push(roomObj);
 
-            currentRoomIndex = 0;
-            currentRoom = rooms[0];
-            currentRoom.el.classList.add("current");
+                    clearCanvas();
+                })
 
-            editorToolbar.querySelector("div.btn[name=preview]").click();
+                currentRoomIndex = 0;
+                currentRoom = rooms[0];
+                currentRoom.el.classList.add("current");
+
+                editorToolbar.querySelector("div.btn[name=preview]").click();
+            });
         }
     }
 }
