@@ -43,9 +43,6 @@ const RoomMenuAction = {
     },
 
     newRoom() {
-        let name = prompt("Enter the room name: ");
-        if (name == null) return;
-
         currentRoom.el.classList.remove("current");
 
         let el = document.createElement("div");
@@ -59,7 +56,7 @@ const RoomMenuAction = {
         roomContainer.appendChild(el);
 
         let room = {
-            name,
+            name: "Room " + (rooms.length + 1),
             el,
             imageEl,
             boxes: []
@@ -69,12 +66,13 @@ const RoomMenuAction = {
         currentRoom = room;
         rooms.push(room);
 
-        roomMenuButton.click();
+        if (this.menuOpen) roomMenuButton.click();
         clearCanvas();
+        this.roomSettings();
     },
 
     roomSettings() {
-        roomMenuButton.click();
+        if (this.menuOpen) roomMenuButton.click();
         roomSettings.style.display = "block";
         roomSettings.style.opacity = 1;
         this.settingsOpen = true;

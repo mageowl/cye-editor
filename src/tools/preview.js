@@ -62,6 +62,15 @@ const PreviewTool = {
                     if (this.inventory.includes(clickTarget[4].name)) return;
                     alert("You picked up a " + clickTarget[4].name + "!")
                     this.inventory.push(clickTarget[4].name)
+                    
+                    let roomNames = rooms.map((value) => value.name)
+                    if (roomNames.includes(currentRoom.name + "-T")) {
+                        let roomID = roomNames.indexOf(currentRoom.name + "-T")
+                        currentRoom.el.classList.remove("current");
+                        currentRoomIndex = roomID;
+                        currentRoom = rooms[roomID];
+                        currentRoom.el.classList.add("current");
+                    }
             
                 default:
                     break;
