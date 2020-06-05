@@ -14,7 +14,7 @@ const EditTool = {
     set selection(box) {
         this._selection = box;
         if (this.selection != null) {
-            let config = box[4]
+            let config = box[4];
 
             configPanel.style.display = "block";
             configPanel.style.opacity = 1;
