@@ -59,6 +59,24 @@ const PreviewTool = {
                     currentRoom = rooms[clickTarget[4].data.roomID];
                     currentRoom.el.classList.add("current");
                     renderBackArrows();
+
+                    let itemFound = false
+                    currentRoom.boxes.forEach((box) => {
+                        if (box[4].type == "item" && this.inventory.includes(box[4].name)) itemFound = true
+                    })
+
+                    if (itemFound) {
+                        let roomNames = rooms.map((value) => value.name)
+                        if (roomNames.includes(currentRoom.name + "-T")) {
+                            let roomID = roomNames.indexOf(currentRoom.name + "-T")
+                            currentRoom.el.classList.remove("current");
+                            currentRoomIndex = roomID;
+                            currentRoom = rooms[roomID];
+                            currentRoom.el.classList.add("current");
+                            renderBackArrows();
+                        }
+                    }
+
                     break;
 
                 case "item":
