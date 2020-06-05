@@ -113,10 +113,9 @@ function handleCmdKey(e, final = false) {
                 };
 
                 rooms.push(roomObj);
-
-                clearCanvas();
             })
 
+            clearCanvas();
             currentRoomIndex = 0;
             currentRoom = rooms[0];
             currentRoom.el.classList.add("current");

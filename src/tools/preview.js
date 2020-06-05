@@ -9,8 +9,9 @@ const PreviewTool = {
         editorToolbar.style.display = "none";
         document.getElementById("export-reminder").style.display = this.imported ? "none" : "block";
         this.previewMode = true;
-        clearCanvas();
         this.inventory = [];
+
+        renderBackArrows();
 
         window.onkeydown = (e) => {
             if (e.metaKey || (e.ctrlKey && !window.navigator.platform.indexOf('Mac') >= 0)) {
@@ -22,6 +23,7 @@ const PreviewTool = {
     },
 
     onmousedown(e) {
+
         let x = e.clientX - this.canvas.offsetLeft;
         let y = e.clientY - this.canvas.offsetTop;
 
@@ -56,6 +58,7 @@ const PreviewTool = {
                     currentRoomIndex = clickTarget[4].data.roomID;
                     currentRoom = rooms[clickTarget[4].data.roomID];
                     currentRoom.el.classList.add("current");
+                    renderBackArrows();
                     break;
 
                 case "item":
@@ -70,6 +73,7 @@ const PreviewTool = {
                         currentRoomIndex = roomID;
                         currentRoom = rooms[roomID];
                         currentRoom.el.classList.add("current");
+                        renderBackArrows();
                     }
             
                 default:
