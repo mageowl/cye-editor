@@ -51,6 +51,7 @@ const EditTool = {
             }
         } else {
             configPanel.style.opacity = 0;
+            configPanel.style.display = "none";
         }
     },
     get selection() {
